@@ -4,6 +4,8 @@ from pathlib import Path
 import yaml
 import colorama
 
+from stoken.types import Config
+
 README_URL = "https://github.com/laorange/stoken"
 BASE_DIR = Path(sys.argv[0]).parent
 colorama.just_fix_windows_console()
@@ -23,11 +25,9 @@ if __name__ == '__main__':
 
     with YAML_PATH.open("rt", encoding="utf-8") as yaml_file:
         try:
-            config = yaml.load(yaml_file, Loader=yaml.SafeLoader)
+            config = Config(**yaml.load(yaml_file, Loader=yaml.SafeLoader))
         except Exception as e:
             quit_with_info(f"{colorama.Fore.RED}{e}\n\n"
                            f"Fail to read configuration file. Please refer to {README_URL} and modify the `{YAML_PATH}`.{colorama.Style.RESET_ALL}")
 
     print(config)
-
-    entry()
