@@ -12,7 +12,7 @@ setup(
     name="stoken",
     version="0.1.0",
     keywords=["git", "data desensitization", "replace token"],
-    description="A code desensitization command tool to substitute tokens (and other sensitive information) in your code.",
+    description="A code desensitization tool, which can substitute tokens (and other sensitive information) in your code.",
     long_description=README,
     long_description_content_type="text/markdown",
     license="AGPL-3.0",

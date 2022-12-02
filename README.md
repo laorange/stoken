@@ -2,15 +2,19 @@
 
 >  substitute-token
 
-**以变量替换代码中密码等敏感信息**的命令行工具
+[简体中文](https://github.com/laorange/stoken/blob/main/README.zh.md) | [English docs](https://github.com/laorange/stoken/blob/main/README.md)
+
+A code desensitization tool, which can substitute tokens (and other sensitive information) in your code. 
 
 ---
 
-使用方法：
+## Quick start
 
-1. 在release页面中下载，并添加到环境变量中 (或者 `pip install stoken` )
+1. Run: `pip install stoken` 
 
-2. 在项目的根目录下创建 **`stoken.yaml`**：
+2. In the root directory of your project, create **`stoken.yaml`** and edit it with [syntax of yaml](https://en.wikipedia.org/wiki/YAML).
+   + `suffix` : the suffix of the files you want to detect. **Don't forget there's a `.` before it**.
+   + `token` : the sensitive data you want to substitute. 
 
 ```yaml
 suffix:
@@ -22,7 +26,7 @@ token:
   MY_PASSWORD: poiuytrewq987654321
 ```
 
-3. 假设有以下代码：
+3. Here is demonstration code file, with the suffix `.py`：
 
 ```python
 # demo.py
@@ -31,13 +35,29 @@ password = "poiuytrewq987654321"
 print(f"{token=}, {password=}")
 ```
 
-4. 执行 `stoken --hide` ，将会根据配置进行替换：
+4. Run `stoken --mode hide`, or run directly `stoken` with the default parameter `--mode auto`, the tokens will be substituted.
 
 ```python
 # demo.py
-token = "#{{{SECRET_TOKEN}}}#"
-password = "#{{{MY_PASSWORD}}}#"
+token = "#{{SECRET_TOKEN}}#"
+password = "#{{MY_PASSWORD}}#"
 print(f"{token=}, {password=}")
 ```
 
-5. 执行 `stoken --restore` ，将会根据配置进行复原。
+5. Run `stoken --mode restore`, or run directly `stoken` with the default parameter `--mode auto`, the tokens will be restored.
+
+## API
+
+`stoken --help`
+
+```
+Options:
+  --mode [auto|hide|restore|debug] The mode of operation. Default: auto.
+  -e, --encoding TEXT              The encoding used to decode the file.
+  -p, --variable-prefix TEXT       The prefix of variable placeholder.
+  -s, --variable-suffix TEXT       The suffix of variable placeholder.
+  --debug                          In debug mode, `stoken` won't modify files,
+                                   only detect tokens.
+  --help                           Show this message and exit.
+```
+
