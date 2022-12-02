@@ -1,2 +1,2 @@
-from stoken.main import *
-from stoken.types import Config
+from main import *
+from model import Config
