@@ -9,7 +9,7 @@ import click
 from model import Config
 
 README_URL = "https://github.com/laorange/stoken"
-BASE_DIR = Path(sys.argv[0]).parent
+BASE_DIR = Path(sys.argv[0]).parent.resolve()
 colorama.just_fix_windows_console()
 
 
