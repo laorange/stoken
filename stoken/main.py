@@ -9,7 +9,7 @@ from colorama import Fore
 import click
 
 README_URL = "https://github.com/laorange/stoken"
-BASE_DIR = Path(sys.argv[0]).parent.resolve()
+BASE_DIR = Path.cwd().resolve()
 colorama.just_fix_windows_console()
 
 
