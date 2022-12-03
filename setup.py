@@ -3,14 +3,11 @@ from setuptools import setup, find_packages
 from pathlib import Path
 
 HERE = Path(__file__).parent
-README = (HERE / "README.md").read_text()
-
-with open("./requirements.txt", encoding="utf-8") as f:
-    install_requires = f.readline()
+README = (HERE / "README.md").read_text(encoding="utf-8")
 
 setup(
     name="stoken",
-    version="0.1.0",
+    version="0.1.1",
     keywords=["git", "data desensitization", "replace token"],
     description="A code desensitization tool, which can substitute tokens (and other sensitive information) in your code.",
     long_description=README,
@@ -26,7 +23,13 @@ setup(
     packages=find_packages(),
     include_package_data=True,
     platforms="any",
-    install_requires=install_requires,
+    install_requires=[
+        "pyyaml>=6.0",
+        "setuptools>=65.5.0",
+        "colorama>=0.4.6",
+        "pydantic>=1.10.2",
+        "click>=8.1.3",
+    ],
     entry_points={
         "console_scripts": [
             "stoken=stoken.main:main"
