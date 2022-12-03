@@ -1,16 +1,21 @@
 import sys
 from pathlib import Path
+from typing import List, Dict
 
+import pydantic
 import yaml
 import colorama
 from colorama import Fore
-
 import click
-from model import Config
 
 README_URL = "https://github.com/laorange/stoken"
 BASE_DIR = Path(sys.argv[0]).parent.resolve()
 colorama.just_fix_windows_console()
+
+
+class Config(pydantic.BaseModel):
+    suffix: List[str]
+    token: Dict[str, str]
 
 
 def quit_with_info(info: str = None):
@@ -25,7 +30,7 @@ def quit_with_info(info: str = None):
 @click.option("-p", "--variable-prefix", default="#{{", help="The prefix of variable placeholder.")
 @click.option("-s", "--variable-suffix", default="}}#", help="The suffix of variable placeholder.")
 @click.option('--debug', is_flag=True, help="In debug mode, `stoken` won't modify files, only detect tokens.")
-def entry(mode: str, encoding: str, variable_prefix: str, variable_suffix: str, debug: bool):
+def main(mode: str, encoding: str, variable_prefix: str, variable_suffix: str, debug: bool):
     if mode == "debug":
         debug = True
         mode = "auto"
@@ -87,4 +92,4 @@ def entry(mode: str, encoding: str, variable_prefix: str, variable_suffix: str, 
 
 
 if __name__ == '__main__':
-    entry()
+    main()
