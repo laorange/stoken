@@ -7,6 +7,7 @@ import yaml
 import colorama
 from colorama import Fore
 import click
+import git
 
 README_URL = "https://github.com/laorange/stoken"
 BASE_DIR = Path.cwd().resolve()
@@ -48,8 +49,15 @@ def main(mode: str, encoding: str, variable_prefix: str, variable_suffix: str, d
         except Exception as e:
             quit_with_info(f"{Fore.RED}{e}\n\n"
                            f"Fail to read configuration file. Please refer to {README_URL} and modify the `{YAML_PATH}`.{colorama.Style.RESET_ALL}")
-
+    git_dev = BASE_DIR.resolve()
+    while not list(git_dev.glob("*.git")):
+        git_dev = git_dev.parent
+    print(git_dev)
+    repo = git.repo.base.Repo(git_dev)
     for file in BASE_DIR.glob("**/*"):
+        if repo.ignored(file):
+            print("{} has been ignored".format(file))
+            continue
         if file.suffix in config.suffix:
             text_of_this_file = ""
             change_num = 0
@@ -93,3 +101,11 @@ def main(mode: str, encoding: str, variable_prefix: str, variable_suffix: str, d
 
 if __name__ == '__main__':
     main()
+
+# repo = git.repo.base.Repo(BASE_DIR)
+# print(repo.ignored(BASE_DIR / "stoken" / "stoken.yaml"))
+# print(repo.ignored(BASE_DIR / "stoken" / "main.py"))
+# file = Path("D:\programming\stoken\stoken")
+# print(list(file.parents)[0])
+
+
