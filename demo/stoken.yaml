@@ -1,0 +1,7 @@
+suffix:
+  - .py
+  - .js
+
+token:
+  SECRET_TOKEN: qwertyuiop123456789
+  MY_PASSWORD: poiuytrewq987654321
