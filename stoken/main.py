@@ -52,7 +52,6 @@ def main(mode: str, encoding: str, variable_prefix: str, variable_suffix: str, d
     git_dev = BASE_DIR.resolve()
     while not list(git_dev.glob("*.git")):
         git_dev = git_dev.parent
-    print(git_dev)
     repo = git.repo.base.Repo(git_dev)
     for file in BASE_DIR.glob("**/*"):
         if repo.ignored(file):
@@ -101,11 +100,3 @@ def main(mode: str, encoding: str, variable_prefix: str, variable_suffix: str, d
 
 if __name__ == '__main__':
     main()
-
-# repo = git.repo.base.Repo(BASE_DIR)
-# print(repo.ignored(BASE_DIR / "stoken" / "stoken.yaml"))
-# print(repo.ignored(BASE_DIR / "stoken" / "main.py"))
-# file = Path("D:\programming\stoken\stoken")
-# print(list(file.parents)[0])
-
-
