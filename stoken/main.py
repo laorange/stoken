@@ -1,6 +1,6 @@
 import sys
 from pathlib import Path
-from typing import List, Dict
+from typing import List, Dict, Union
 
 import pydantic
 import yaml
@@ -23,6 +23,23 @@ def quit_with_info(info: str = None):
     info = info + '\n\n' if info else ''
     input(f"{info}Press ENTER to exist: ")
     sys.exit(1)
+
+
+def get_git_repo() -> Union[git.repo.base.Repo, None]:
+    git_dev = BASE_DIR.resolve()
+    while 1:
+        if (git_dev / ".git").exists():
+            try:
+                repo = git.repo.base.Repo(git_dev)
+                print(f"Found git root: {repo.git_dir}")
+                return repo
+            except:
+                return None
+
+        if git_dev.parent == git_dev:
+            return None
+
+        git_dev = git_dev.parent
 
 
 @click.command()
@@ -49,14 +66,13 @@ def main(mode: str, encoding: str, variable_prefix: str, variable_suffix: str, d
         except Exception as e:
             quit_with_info(f"{Fore.RED}{e}\n\n"
                            f"Fail to read configuration file. Please refer to {README_URL} and modify the `{YAML_PATH}`.{colorama.Style.RESET_ALL}")
-    git_dev = BASE_DIR.resolve()
-    while not list(git_dev.glob("*.git")):
-        git_dev = git_dev.parent
-    repo = git.repo.base.Repo(git_dev)
+
+    repo = get_git_repo()
     for file in BASE_DIR.glob("**/*"):
-        if repo.ignored(file):
-            print("{} has been ignored".format(file))
+        if repo is not None and repo.ignored(file):
+            print(f"{file.relative_to(BASE_DIR)} has been ignored.")
             continue
+
         if file.suffix in config.suffix:
             text_of_this_file = ""
             change_num = 0
