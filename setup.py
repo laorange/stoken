@@ -29,6 +29,7 @@ setup(
         "colorama>=0.4.6",
         "pydantic>=1.10.2",
         "click>=8.1.3",
+        "GitPython>=3.1.29",
     ],
     entry_points={
         "console_scripts": [
