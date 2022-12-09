@@ -115,7 +115,8 @@ class Stoken:
                 with file.open("wt", encoding=self.encoding) as f:
                     f.write(text_of_this_file)
         else:
-            print(f"{file.relative_to(BASE_DIR)}: No tokens were found.")
+            if self.debug:  # print no-token files‘ names only in debug mode
+                print(f"{file.relative_to(BASE_DIR)}: No tokens were found.")
 
     def execute(self, path: Path = None):
         if path is None:
