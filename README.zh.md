@@ -4,7 +4,7 @@
 
 [English docs](https://github.com/laorange/stoken/blob/main/README.md) | [简体中文](https://github.com/laorange/stoken/blob/main/README.zh.md)
 
-**以变量替换代码中密码等敏感信息**的命令行工具
+**以变量替换代码中密码等敏感信息**的命令行工具。
 
 ---
 
@@ -49,13 +49,13 @@ print(f"{token=}, {password=}")
 
 可执行 `stoken --help` 查看参数提示：
 
-```
-Options:
-  --mode [auto|hide|restore|debug] 操作模式
-  -e, --encoding                   文件编码，默认`utf-8`
-  -p, --variable-prefix            变量占位符前缀，默认`#{{`
-  -s, --variable-suffix            变量占位符前缀，默认`}}#`
-  --debug                          调试模式下，仅检测，不修改 
-  --help                           查看使用说明
-```
+| 参数                    | 描述                                                         |
+| ----------------------- | ------------------------------------------------------------ |
+| --mode                  | 操作模式。默认：`auto`                                       |
+| -e \| --encoding        | 文件编码，默认`utf-8`                                        |
+| -p \| --variable-prefix | 变量占位符前缀，默认`#{{`                                    |
+| -s \| --variable-suffix | 变量占位符前缀，默认`}}#`                                    |
+| --debug                 | 调试模式下，仅检测，不修改                                   |
+| --no-git                | 默认情况下，程序会检测是否由Git管理，如果是，在查找密钥时将会跳过`.gitignore`中的文件。使用该选项，可以强制检测所有文件。 |
+| --help                  | 查看使用说明                                                 |
 

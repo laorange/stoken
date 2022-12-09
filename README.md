@@ -50,14 +50,13 @@ print(f"{token=}, {password=}")
 
 `stoken --help`
 
-```
-Options:
-  --mode [auto|hide|restore|debug] The mode of operation. Default: auto.
-  -e, --encoding TEXT              The encoding used to decode the file.
-  -p, --variable-prefix TEXT       The prefix of variable placeholder.
-  -s, --variable-suffix TEXT       The suffix of variable placeholder.
-  --debug                          In debug mode, `stoken` won't modify files,
-                                   only detect tokens.
-  --help                           Show this message and exit.
-```
+| options                 | description                                                  |
+| ----------------------- | ------------------------------------------------------------ |
+| --mode                  | The mode of operation. Default: `auto`                       |
+| -e \| --encoding        | The encoding used to decode the file. Default: `utf-8`       |
+| -p \| --variable-prefix | The prefix of variable placeholder. Default: `#{{`           |
+| -s \| --variable-suffix | The suffix of variable placeholder. Default: `}}#`           |
+| --debug                 | Activate this option to enter debug mode, as result, `stoken` won't modify files, only detect tokens. |
+| --no-git                | By default, the program will detect if there is a git directory, and if so, it will ignore the files in `.gitignore`. Activate this option to detect all the files. |
+| --help                  | Show this message and exit.                                  |
 

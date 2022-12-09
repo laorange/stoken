@@ -136,10 +136,10 @@ class Stoken:
 
 
 @click.command()
-@click.option("--mode", type=click.Choice(['auto', 'hide', 'restore', 'debug'], case_sensitive=False), help='The mode of operation.', default="auto")
-@click.option("-e", "--encoding", default="utf-8", help='The encoding used to decode the file.')
-@click.option("-p", "--variable-prefix", default="#{{", help="The prefix of variable placeholder.")
-@click.option("-s", "--variable-suffix", default="}}#", help="The suffix of variable placeholder.")
+@click.option("--mode", type=click.Choice(['auto', 'hide', 'restore', 'debug'], case_sensitive=False), help='The mode of operation. Default: auto', default="auto")
+@click.option("-e", "--encoding", default="utf-8", help='The encoding used to decode the file. Default: utf-8')
+@click.option("-p", "--variable-prefix", default="#{{", help="The prefix of variable placeholder. Default: #{{")
+@click.option("-s", "--variable-suffix", default="}}#", help="The suffix of variable placeholder. Default: }}#")
 @click.option('--debug', is_flag=True, help="In debug mode, `stoken` won't modify files, only detect tokens.")
 @click.option('--no-git', is_flag=True, help="By default, the program will detect if there is a git directory, and if so, it will ignore the files in .gitignore. Activate this option to detect all the files.")
 def main(mode: str, encoding: str, variable_prefix: str, variable_suffix: str, debug: bool, no_git: bool):
