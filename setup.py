@@ -7,7 +7,7 @@ README = (HERE / "README.md").read_text(encoding="utf-8")
 
 setup(
     name="stoken",
-    version="0.2.0",
+    version="0.2.1",
     keywords=["git", "data desensitization", "replace token"],
     description="A code desensitization tool, which can substitute tokens (and other sensitive information) in your code.",
     long_description=README,
