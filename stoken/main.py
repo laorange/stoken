@@ -122,9 +122,11 @@ class Stoken:
         if path is None:
             path = BASE_DIR
 
-        if self.git_repo is not None and self.git_repo.ignored(path):
-            print(f"{path.relative_to(BASE_DIR)} has been ignored.")
-            return
+        if self.git_repo is not None:
+            if Path(self.git_repo.git_dir) == path or self.git_repo.ignored(path):
+                if path.is_dir() or path.suffix in self.config.suffix:
+                    print(f"{path.relative_to(BASE_DIR)} has been ignored.")
+                return
 
         if path.is_dir():
             for file in path.iterdir():
@@ -145,6 +147,7 @@ class Stoken:
 def main(mode: str, encoding: str, variable_prefix: str, variable_suffix: str, debug: bool, no_git: bool):
     stoken = Stoken(mode, encoding, variable_prefix, variable_suffix, debug, no_git)
     stoken.execute()
+    stoken.quit_with_info(f"{Fore.GREEN}stoken: finished!{Fore.RESET}")
 
 
 if __name__ == '__main__':
