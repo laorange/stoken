@@ -20,19 +20,20 @@ class Config(pydantic.BaseModel):
 
 
 class Stoken:
-    def __init__(self, mode: str, encoding: str, variable_prefix: str, variable_suffix: str, debug: bool):
+    def __init__(self, mode: str, encoding: str, variable_prefix: str, variable_suffix: str, debug: bool, no_git: bool):
         self.mode = mode
         self.encoding = encoding
         self.variable_prefix = variable_prefix
         self.variable_suffix = variable_suffix
         self.debug = debug
+        self.no_git = no_git
 
         if mode == "debug":
             self.debug = True
             self.mode = "auto"
 
         self.config = self.get_config()
-        self.git_repo = self.get_git_repo()
+        self.git_repo = None if no_git else self.get_git_repo()
 
     @staticmethod
     def quit_with_info(info: str = None):
@@ -139,8 +140,9 @@ class Stoken:
 @click.option("-p", "--variable-prefix", default="#{{", help="The prefix of variable placeholder.")
 @click.option("-s", "--variable-suffix", default="}}#", help="The suffix of variable placeholder.")
 @click.option('--debug', is_flag=True, help="In debug mode, `stoken` won't modify files, only detect tokens.")
-def main(mode: str, encoding: str, variable_prefix: str, variable_suffix: str, debug: bool):
-    stoken = Stoken(mode, encoding, variable_prefix, variable_suffix, debug)
+@click.option('--no-git', is_flag=True, help="By default, the program will detect if there is a git directory, and if so, it will ignore the files in .gitignore. Activate this option to detect all the files.")
+def main(mode: str, encoding: str, variable_prefix: str, variable_suffix: str, debug: bool, no_git: bool):
+    stoken = Stoken(mode, encoding, variable_prefix, variable_suffix, debug, no_git)
     stoken.execute()
 
 
