@@ -9,6 +9,7 @@ from colorama import Fore
 import click
 import git
 
+VERSION = "0.2.2"
 README_URL = "https://github.com/laorange/stoken"
 BASE_DIR = Path.cwd().resolve()
 colorama.just_fix_windows_console()
@@ -144,7 +145,11 @@ class Stoken:
 @click.option("-s", "--variable-suffix", default="}}#", help="The suffix of variable placeholder. Default: }}#")
 @click.option('--debug', is_flag=True, help="In debug mode, `stoken` won't modify files, only detect tokens.")
 @click.option('--no-git', is_flag=True, help="By default, the program will detect if there is a git directory, and if so, it will ignore the files in .gitignore. Activate this option to detect all the files.")
-def main(mode: str, encoding: str, variable_prefix: str, variable_suffix: str, debug: bool, no_git: bool):
+@click.option("-v", "--version", is_flag=True, help="To get the current version of stoken.")
+def main(mode: str, encoding: str, variable_prefix: str, variable_suffix: str, debug: bool, no_git: bool, version: bool):
+    if version:
+        return print(f"v{VERSION}")
+
     stoken = Stoken(mode, encoding, variable_prefix, variable_suffix, debug, no_git)
     stoken.execute()
     stoken.quit_with_info(f"{Fore.GREEN}stoken: finished!{Fore.RESET}")
