@@ -49,7 +49,7 @@ class Stoken:
             if (git_dev / ".git").exists():
                 try:
                     repo = git.repo.base.Repo(git_dev)
-                    print(f"Found git root: {repo.git_dir}")
+                    print(f"Found git root: {repo.git_dir}. If there's no need to detect ignored files in git, use the option `--no-git`.")
                     return repo
                 except:
                     return None
